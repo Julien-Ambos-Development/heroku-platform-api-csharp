@@ -276,7 +276,7 @@ namespace JAD.Heroku.SDK.Test.Controllers
                 {
                     AppId = cms.Id,
                     PipelineId = pipeline.Id,
-                    Stage = "production"
+                    Stage = PipelineStage.Production
                 });
 
                 // CREATE Dynos

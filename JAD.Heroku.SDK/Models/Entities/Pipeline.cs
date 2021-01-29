@@ -19,4 +19,12 @@ namespace JAD.Heroku.SDK.Models.Entities
         [JsonPropertyName("updated_at")] 
         public DateTime UpdatedAt { get; set; }
     }
+
+    public static class PipelineStage
+    {
+        public const string Production = "production";
+        public const string Staging = "staging";
+        public const string Test = "test";
+        public const string Review = "review";
+    }
 }
