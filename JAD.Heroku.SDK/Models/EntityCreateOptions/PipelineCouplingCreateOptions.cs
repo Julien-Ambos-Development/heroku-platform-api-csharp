@@ -19,4 +19,13 @@ namespace JAD.Heroku.SDK.Models.EntityCreateOptions
         [JsonPropertyName("stage")]
         public string Stage { get; set; }
     }
+
+    public class StageTypes
+    {
+        public const string Test = "test";
+        public const string Review = "review";
+        public const string Development = "development";
+        public const string Staging = "staging";
+        public const string Production = "production";
+    }
 }

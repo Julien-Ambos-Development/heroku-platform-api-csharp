@@ -18,5 +18,6 @@ namespace JAD.Heroku.SDK.Models
         public const string Source = "sources";
         public const string Dyno = "dynos";
         public const string Domain = "domains";
+        public const string Formation = "formation";
     }
 }

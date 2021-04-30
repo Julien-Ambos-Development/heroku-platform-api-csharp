@@ -59,4 +59,11 @@ namespace JAD.Heroku.SDK.Models.Entities
         [JsonPropertyName("id")]
         public Guid Id { get; set; }
     }
+    
+    public class BuildStatus
+    {
+        public const string Pending = "pending";
+        public const string Failed = "failed";
+        public const string Succeeded = "succeeded";
+    }
 }

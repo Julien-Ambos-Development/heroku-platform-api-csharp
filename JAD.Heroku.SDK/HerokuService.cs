@@ -38,6 +38,34 @@ namespace JAD.Heroku.SDK
         }
         #endregion
 
+        #region ACM
+        public async Task<App> EnableACMAsync(Guid appId)
+        {
+            logger.LogInformation($"--- Enable ACM flag for appId : {appId} ---");
+
+            var response = await client.PostAsJsonAsync($"{EntityNames.App}/{appId}/acm", string.Empty);
+
+            var model = await response.Content.ReadFromJsonAsync<App>();
+
+            logger.LogInformation($"--- Successfully enabled ACM flag for appId : {appId} ---");
+
+            return model;
+        }
+
+        public async Task<App> DisableACMAsync(Guid appId)
+        {
+            logger.LogInformation($"--- Disable ACM flag for appId : {appId} ---");
+
+            var response = await client.DeleteAsync($"{EntityNames.App}/{appId}/acm");
+
+            var model = await response.Content.ReadFromJsonAsync<App>();
+
+            logger.LogInformation($"--- Successfully disabled ACM flar for appId : {appId} ---");
+
+            return model;
+        }
+        #endregion
+
         #region AddOn
         public async Task<List<AddOn>> GetAddOnsAsync()
         {
@@ -384,7 +412,7 @@ namespace JAD.Heroku.SDK
             return model;
         }
 
-        public async Task UploadSourceAsync(string uploadUrl, byte[] binaryData)
+        public async Task<HttpResponseMessage> UploadSourceAsync(string uploadUrl, byte[] binaryData)
         {
             logger.LogInformation($"--- Uploading binary-data to uploadlink ---");
 
@@ -393,12 +421,19 @@ namespace JAD.Heroku.SDK
 
             var byteArrayContent = new ByteArrayContent(binaryData);
 
-            var result = await uploadClient.PutAsync(
+            var response = await uploadClient.PutAsync(
                 uri,
                 byteArrayContent
             );
 
-            logger.LogInformation($"--- Successfully uploaded binary-data ---");
+            if (response.IsSuccessStatusCode)
+            {
+                logger.LogInformation($"--- Successfully uploaded binary-data ---");
+            } else
+            {
+                logger.LogInformation($"--- Uploading the sourceCode failed. Error: {response.Content.ReadAsStringAsync()} ---");
+            }
+            return response;
         }
         #endregion
 
@@ -522,6 +557,46 @@ namespace JAD.Heroku.SDK
             return model;
         }
 
+        #endregion
+
+        #region Formation
+        public async Task<Formation> GetFormationByIdAsync(Guid appId, Guid formationId)
+        {
+            logger.LogInformation($"--- Fetching heroku formation by id: {formationId} ---");
+
+            var response = await client.GetFromJsonAsync<Formation>($"{EntityNames.App}/{appId}/{EntityNames.Formation}/{formationId}");
+
+            logger.LogInformation($"--- Returning heroku formation with id {response.Id} ---");
+
+            return response;
+        }
+
+        public async Task<List<Formation>> GetFormationsAsync(Guid appId)
+        {
+            logger.LogInformation($"--- Fetching heroku formations for appId: {appId}---");
+
+            var response = await client.GetFromJsonAsync<List<Formation>>($"{EntityNames.App}/{appId}/{EntityNames.Formation}");
+
+            logger.LogInformation($"--- Returning {response.Count} heroku formations ---");
+
+            return response;
+        }
+
+        public async Task<Formation> UpdateFormationAsync(Guid appId, FormationUpdateOptions options)
+        {
+            logger.LogInformation($"--- Updating heroku formation for appId: {appId} ---");
+
+            HttpResponseMessage response = await client.PostAsync(
+                $"{EntityNames.App}/{appId}/{EntityNames.Formation}",
+                HerokuExtensions.CreateCamelCaseStringContent(options)
+            );
+
+            var model = JsonSerializer.Deserialize<Formation>(await response.Content.ReadAsStringAsync());
+
+            logger.LogInformation($"--- Successfully updated heroku formation with id: {model.Id} for appId: {appId}---");
+
+            return model;
+        }
         #endregion
     }
 }

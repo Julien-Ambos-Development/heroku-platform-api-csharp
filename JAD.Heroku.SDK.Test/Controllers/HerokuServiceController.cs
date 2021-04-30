@@ -49,7 +49,7 @@ namespace JAD.Heroku.SDK.Test.Controllers
             // Create Postgres DB addon
             var addOntest = await client.CreateAddOnAsync(new Guid("appId"), new AddOnCreateOptions
             {
-                plan = "planId",
+                Plan = "planId",
             });
 
             var attachment = await client.CreateAddOnAttachmentAsync(new AddOnAttachmentCreateOptions() 
@@ -130,7 +130,7 @@ namespace JAD.Heroku.SDK.Test.Controllers
                 // Create Postgres DB addon
                 var addOn = await client.CreateAddOnAsync(api.Id, new AddOnCreateOptions
                 {
-                    plan = "062a1cc7-f79f-404c-9f91-135f70175577",
+                    Plan = "062a1cc7-f79f-404c-9f91-135f70175577",
                     Attachment = new AddOnCreateAttachment
                     {
                         Name = "DATABASE_URL"

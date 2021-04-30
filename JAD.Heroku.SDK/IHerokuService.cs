@@ -4,6 +4,7 @@ using JAD.Heroku.SDK.Models.EntityUpdateOptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -84,7 +85,7 @@ namespace JAD.Heroku.SDK
         #region Source
         public Task<Source> GetSourceAsync();
 
-        public Task UploadSourceAsync(string uploadUrl, byte[] binaryData);
+        public Task<HttpResponseMessage> UploadSourceAsync(string uploadUrl, byte[] binaryData);
 
         #endregion
 

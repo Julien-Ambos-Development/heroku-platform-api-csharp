@@ -25,4 +25,14 @@ namespace JAD.Heroku.SDK.Models.EntityCreateOptions
         [JsonPropertyName("type")]
         public string Type { get; set; }
     }
+
+    public class DynoSizes
+    {
+        public const string Free = "free";
+        public const string Hobby = "hobby";
+        public const string Standard1X = "standard-1x";
+        public const string Standard2X = "standard-2x";
+        public const string PerformanceM = "performance-m";
+        public const string PerformanceL = "performance-l";
+    }
 }
