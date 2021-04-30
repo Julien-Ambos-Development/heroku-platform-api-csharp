@@ -586,7 +586,7 @@ namespace JAD.Heroku.SDK
         {
             logger.LogInformation($"--- Updating heroku formation for appId: {appId} ---");
 
-            HttpResponseMessage response = await client.PostAsync(
+            HttpResponseMessage response = await client.PatchAsync(
                 $"{EntityNames.App}/{appId}/{EntityNames.Formation}",
                 HerokuExtensions.CreateCamelCaseStringContent(options)
             );

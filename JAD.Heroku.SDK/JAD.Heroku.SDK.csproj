@@ -9,8 +9,8 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageTags>.NetCore, Heroku, HerokuPlatformAPI, API</PackageTags>
     <RepositoryUrl>https://github.com/Julien-Ambos-Development/heroku-platform-api-csharp</RepositoryUrl>
-    <Version>1.0.2</Version>
-    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <Version>1.0.3.1</Version>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
   </PropertyGroup>
 
