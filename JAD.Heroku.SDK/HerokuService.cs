@@ -582,12 +582,12 @@ namespace JAD.Heroku.SDK
             return response;
         }
 
-        public async Task<Formation> UpdateFormationAsync(Guid appId, FormationUpdateOptions options)
+        public async Task<Formation> UpdateFormationAsync(Guid appId, Guid formationId, FormationUpdateOptions options)
         {
             logger.LogInformation($"--- Updating heroku formation for appId: {appId} ---");
 
             HttpResponseMessage response = await client.PatchAsync(
-                $"{EntityNames.App}/{appId}/{EntityNames.Formation}",
+                $"{EntityNames.App}/{appId}/{EntityNames.Formation}/{formationId}",
                 HerokuExtensions.CreateCamelCaseStringContent(options)
             );
 
